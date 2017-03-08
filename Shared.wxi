@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <?define CompanyName = "TruMed" ?>
+  <?define ProductName = "AccuVax" ?>
+  <?define AppVersion = "2.1.7.0" ?>
+  <?define UpgradeCode = "494574fc-2.1.8.0-98ce-2.1.8.0d" ?>
+</Include>
