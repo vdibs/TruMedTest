@@ -2,6 +2,6 @@
 <Include>
   <?define CompanyName = "TruMed" ?>
   <?define ProductName = "AccuVax" ?>
-  <?define AppVersion = "1.1.3.0" ?>
-  <?define UpgradeCode = "494574fc-1.1.3.0-98ce-1.1.3.0d" ?>
+  <?define AppVersion = "1.1.4.0" ?>
+  <?define UpgradeCode = "494574fc-1.1.4.0-98ce-1.1.4.0d" ?>
 </Include>
