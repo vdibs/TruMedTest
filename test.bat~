@@ -1,13 +1,12 @@
 :: test teamcity prerelease
  
 :: push tag to GitHub
-git tag v%BUILD_NUMBER%
-git push https://64c321ada8682ed2e5612c40a4025f92076455e9:@github.com/vdibs/TruMedTest --tag
+git push origin v%BUILD_NUMBER%
 
 :: create release 
 echo Creating Release
 echo {"tag_name": "v%BUILD_NUMBER%","target_commitish": "master","name": "v%BUILD_NUMBER%","body":"Release of version v%BUILD_NUMBER% with TeamCity", "draft": false,"prerelease": true} > json.json
-curl -# -XPOST -H 'Content-Type:application/json' -H 'Accept:application/json' --data-binary @json.json https://api.github.com/repos/:vdibs/:TruMedTest/releases?access_token=:64c321ada8682ed2e5612c40a4025f92076455e9 -o response.json
+curl -# -XPOST -H 'Content-Type:application/json' -H 'Accept:application/json' --data-binary @json.json https://api.github.com/repos/:vdibs/:TruMedTest/releases -o response.json
 del json.json
 
 :: get release id
@@ -25,7 +24,7 @@ echo Reached 4
 move /y AccuVaxInstaller.msi AccuVaxInstaller_%BUILD_NUMBER%.msi
 
 :: upload msi to release
-curl -# -XPOST -H "Authorization:token 64c321ada8682ed2e5612c40a4025f92076455e9" -H "Content-Type:application/x-ole-storage" --data-binary @AccuVaxInstaller_%BUILD_NUMBER%.msi --data-binary https://uploads.github.com/repos/:vdibs/:TruMedTest/releases/:%id%/assets?name=AccuVaxInstaller_%BUILD_NUMBER%.msi
+curl -# -XPOST -H "Content-Type:application/x-ole-storage" --data-binary @AccuVaxInstaller_%BUILD_NUMBER%.msi --data-binary https://uploads.github.com/repos/:vdibs/:TruMedTest/releases/:%id%/assets?name=AccuVaxInstaller_%BUILD_NUMBER%.msi
 
 :: delete installer in current dir
 del AccuVaxInstaller_%BUILD_NUMBER%.msi
@@ -40,7 +39,8 @@ echo Reached 2
 move /y %~dp0\Folder\testShared.wxi %~dp0\Folder\Shared.wxi
 
 :: To Test!!
-git add %~dp0\Shared.wxi
+echo Reached: add Shared.wxi
+git add %~dp0\Folder\Shared.wxi
 git commit -m "bump version number"
 git push
 
