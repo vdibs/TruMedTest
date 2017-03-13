@@ -1,7 +1,8 @@
 :: test teamcity prerelease
  
 :: push tag to GitHub
-git push origin v%BUILD_NUMBER%
+git tag v%BUIILD_NUMBER%
+git push origin --tags
 
 :: create release 
 echo Creating Release
