@@ -7,6 +7,7 @@ git push origin --tags
 :: create release 
 echo Creating Release
 echo {"tag_name": "v%BUILD_NUMBER%","target_commitish": "master","name": "v%BUILD_NUMBER%","body":"Release of version v%BUILD_NUMBER% with TeamCity", "draft": false,"prerelease": true} > json.json
+curl -u "vdibs" https://api.github.com
 curl -# -XPOST -H 'Content-Type:application/json' -H 'Accept:application/json' --data-binary @json.json https://api.github.com/repos/:vdibs/:TruMedTest.git/releases -o response.json
 del json.json
 
@@ -25,6 +26,7 @@ echo Reached 4
 move /y AccuVaxInstaller.msi AccuVaxInstaller_%BUILD_NUMBER%.msi
 
 :: upload msi to release
+curl -u "vdibs" https://api.github.com
 curl -# -XPOST -H "Content-Type:application/x-ole-storage" --data-binary @AccuVaxInstaller_%BUILD_NUMBER%.msi --data-binary https://uploads.github.com/repos/:vdibs/:TruMedTest.git/releases/:%id%/assets?name=AccuVaxInstaller_%BUILD_NUMBER%.msi
 
 :: delete installer in current dir
